@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block header %}
+  <h2>🩺 Doctor Dashboard</h2>
+  <p class="lead">Welcome back, Dr. {{ name }}. Access patient tools and review records.</p>
+{% endblock %}
+{% block content %}
+  <div class="button-row">
+    <a href="{{ url_for('predict') }}" class="green-btn">Predict Thyroid Cancer</a>
+    <a href="{{ url_for('history') }}" class="secondary-btn">View Prediction History</a>
+    <a href="{{ url_for('logout') }}" class="secondary-btn">Logout</a>
+  </div>
+{% endblock %}
