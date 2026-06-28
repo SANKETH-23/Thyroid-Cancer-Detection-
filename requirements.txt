@@ -1,8 +1,0 @@
-Flask>=2.0
-bcrypt>=4.0
-joblib>=1.2
-numpy>=1.24
-mysql-connector-python>=8.0
-scikit-learn==1.4.2; python_version < "3.13"
-scikit-learn>=1.4; python_version >= "3.13"
-gunicorn>=21.0

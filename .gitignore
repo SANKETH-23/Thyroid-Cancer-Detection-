@@ -1,7 +1,0 @@
-__pycache__/
-*.py[cod]
-*.log
-.env
-thyroid_app.db
-.venv/
-venv/
