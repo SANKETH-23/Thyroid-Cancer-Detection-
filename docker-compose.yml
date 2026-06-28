@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: thyroid_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass123
+      MYSQL_DATABASE: thyroid_db
+      MYSQL_USER: thyroid
+      MYSQL_PASSWORD: thyroidpass123
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./data.sql:/docker-entrypoint-initdb.d/data.sql:ro
+    ports:
+      - "127.0.0.1:3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    container_name: thyroid_web
+    depends_on:
+      - db
+    ports:
+      - "127.0.0.1:5000:5000"
+    environment:
+      SECRET_KEY: supersecretkey
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_USER: thyroid
+      MYSQL_PASSWORD: thyroidpass123
+      MYSQL_DB: thyroid_db
+    volumes:
+      - .:/app:rw
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
